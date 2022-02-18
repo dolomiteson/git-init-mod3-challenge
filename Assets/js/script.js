@@ -16,19 +16,22 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
 
   // Password Length Prompt
-  var pwdLength = validateLengthVal(); 
+  // var pwdLength = validateLengthVal(); 
+  // if(typeof pwdLength === "string"){
+  //   return pwdLength;
+  // }
 
   // Password Lower Case?
   var isLower = confirm("Should your password include lower-case characters?"); 
   
-  // Password Upper Case?
-  var isUpper = confirm("Should your password include upper-case characters?");
-  // Password Number?
-  var isNumber = confirm("Should your password include numbers?");
-  // Password Special Char?
-  var isSpecialChar = confirm("Should your password include special characters?");
+  // // Password Upper Case?
+  // var isUpper = confirm("Should your password include upper-case characters?");
+  // // Password Number?
+  // var isNumber = confirm("Should your password include numbers?");
+  // // Password Special Char?
+  // var isSpecialChar = confirm("Should your password include special characters?");
   
-  return pwdLength;
+  return typeof isLower;
 }
 
 
