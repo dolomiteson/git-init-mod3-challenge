@@ -120,18 +120,4 @@ function buildPwd(pwdCriteria) {
   }
 
   return passwordVal;
-
-
-  
-
-  
-  
-
-  
-  // Object with our possible ranges
-  // numbers = 48 - 57
-  // uppers = 65 - 90
-  // lowers = 97 - 122
-  // specChar = 33-47 || 58-64 || 91-96 || 123-126
-  // all = 33 - 126
 }
