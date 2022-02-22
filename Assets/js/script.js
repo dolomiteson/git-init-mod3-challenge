@@ -15,6 +15,8 @@ generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
 
+
+
   // Password Length Prompt
   var pwdLength = validateLengthVal(); 
   if(typeof pwdLength === "string"){
@@ -22,21 +24,22 @@ function generatePassword() {
   }
 
   // Password Lower Case?
-  var isLower = confirm("Should your password include lower-case characters?"); 
+  var isLower = confirm("Should your password mandatory include lower-case characters?"); 
   
   // Password Upper Case?
-  var isUpper = confirm("Should your password include upper-case characters?");
+  var isUpper = confirm("Should your password mandatory include upper-case characters?");
   
   // Password Number?
-  var isNumber = confirm("Should your password include numbers?");
+  var isNumber = confirm("Should your password mandatory include numbers?");
   
   // Password Special Char?
-  var isSpecialChar = confirm("Should your password include special characters?");
+  var isSpecialChar = confirm("Should your password mandatory include special characters?");
 
   // Build Password
-  var pwdValue = buildPwd();
+  const pwdOptions = {pwdLenVal: pwdLength, loCase: isLower, hiCase: isUpper, num: isNumber, specChar: isSpecialChar};
+  var pwdValue = buildPwd(pwdOptions);
   
-  return isLower;
+  return pwdValue;
 }
 
 
@@ -54,6 +57,81 @@ function validateLengthVal() {
 }
 
 /** Function to build password based on selection **/
-function buildPwd() {
-  // TODO: Build Code
+function buildPwd(pwdCriteria) {
+
+  /* Variables*/
+  let passwordVal = "";
+  var keyArr= [];
+
+  // Supplement array
+  if(pwdCriteria.num === true){
+    keyArr[keyArr.length] = "number";
+  }
+
+  if(pwdCriteria.loCase === true){
+    keyArr[keyArr.length] = "lower";
+  }
+
+  if(pwdCriteria.hiCase === true){
+    keyArr[keyArr.length] = "upper";
+  }
+
+  if(pwdCriteria.specChar === true){
+    keyArr[keyArr.length] = "symbol";
+  }
+
+  // Return base password for empty array
+  if(keyArr.length === 0){return "Password";}
+
+  // Build Password
+  for(index = 0; index < pwdCriteria.pwdLenVal; index++){
+    // Pick random char type to include
+    var charType = keyArr[Math.floor(Math.random() * keyArr.length)];
+
+    if(charType === 'number'){
+      passwordVal += Math.floor(Math.random() * 10);
+    }
+
+    if(charType === 'lower'){
+      var min = 97;
+      var max = 122;
+      var unicodeVal = Math.floor(Math.random() * (max - min + 1)) + min;
+      passwordVal += String.fromCharCode(unicodeVal);
+    }
+
+    if(charType === 'upper'){
+      var min = 65;
+      var max = 90;
+      var unicodeVal = Math.floor(Math.random() * (max - min + 1)) + min;
+      passwordVal += String.fromCharCode(unicodeVal);
+    }
+
+    if(charType === 'symbol'){
+      var uCodeArr = [
+        Math.floor(Math.random() * (47 - 33 + 1)) + 33,
+        Math.floor(Math.random() * (64 - 58 + 1)) + 58,
+        Math.floor(Math.random() * (91 - 96 + 1)) + 96,
+        Math.floor(Math.random() * (126 - 123 + 1)) + 123
+      ];
+
+      var unicodeVal = uCodeArr[Math.floor(Math.random() * uCodeArr.length)];
+      passwordVal += String.fromCharCode(unicodeVal);
+    }
+  }
+
+  return passwordVal;
+
+
+  
+
+  
+  
+
+  
+  // Object with our possible ranges
+  // numbers = 48 - 57
+  // uppers = 65 - 90
+  // lowers = 97 - 122
+  // specChar = 33-47 || 58-64 || 91-96 || 123-126
+  // all = 33 - 126
 }
