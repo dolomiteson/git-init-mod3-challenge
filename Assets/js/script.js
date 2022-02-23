@@ -119,5 +119,54 @@ function buildPwd(pwdCriteria) {
     }
   }
 
+  var isPwdGood = validatePwd(passwordVal, keyArr);
+
+  if(isPwdGood != true){
+    alert("Mandatory char missing!!");
+    buildPwd(pwdCriteria);
+  }
   return passwordVal;
 }
+
+/* Function to validate all mandatory chars used*/
+function validatePwd(passVal, arr) {
+
+  // Variables
+  isNum = "";
+  isLo = "";
+  isHi = "";
+  isSym = "";
+
+  // Iterate through mandatory fields
+  for(index = 0; index < arr.length; index ++){
+    var charType = arr[index];
+
+    // Number validation
+    if(charType === "number"){
+      var isNum = new RegExp(/[0-9]/).test(passVal);
+    }
+
+    // Lower validation
+    if(charType === "lower"){
+      var isLo = new RegExp(/[a-z]/).test(passVal);
+    }
+    
+    // Upper validation
+    if(charType === "upper"){
+      var isHi = new RegExp(/[A-Z]/).test(passVal);
+    }
+
+    // Symbol validation
+    if(charType === "symbol"){
+      var isSym = new RegExp(/[\W]/).test(passVal);
+    }
+  }
+
+  // All mandatory chars are present
+  if(isNum != false && isLo != false && isHi != false && isSym != false){
+    return true;
+  }
+  // Missing mandatory chars
+  return false;
+}
+
