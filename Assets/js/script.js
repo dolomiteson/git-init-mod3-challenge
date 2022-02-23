@@ -121,21 +121,21 @@ function buildPwd(pwdCriteria) {
 
   var isPwdGood = validatePwd(passwordVal, keyArr);
 
-  if(isPwdGood != true){
-    alert("Mandatory char missing!!");
-    buildPwd(pwdCriteria);
+  if(isPwdGood !== true){
+    passwordVal = buildPwd(pwdCriteria);
   }
   return passwordVal;
+  
 }
 
 /* Function to validate all mandatory chars used*/
 function validatePwd(passVal, arr) {
 
   // Variables
-  isNum = "";
-  isLo = "";
-  isHi = "";
-  isSym = "";
+  var isNum = true;
+  var isLo = true;
+  var isHi = true;
+  var isSym = true;
 
   // Iterate through mandatory fields
   for(index = 0; index < arr.length; index ++){
@@ -143,30 +143,29 @@ function validatePwd(passVal, arr) {
 
     // Number validation
     if(charType === "number"){
-      var isNum = new RegExp(/[0-9]/).test(passVal);
+      isNum = /\d/.test(passVal);
     }
 
     // Lower validation
-    if(charType === "lower"){
-      var isLo = new RegExp(/[a-z]/).test(passVal);
+    else if(charType === "lower"){
+      isLo = /[a-z]/.test(passVal);
     }
     
     // Upper validation
-    if(charType === "upper"){
-      var isHi = new RegExp(/[A-Z]/).test(passVal);
+    else if(charType === "upper"){
+      isHi = /[A-Z]/.test(passVal);
     }
 
     // Symbol validation
-    if(charType === "symbol"){
-      var isSym = new RegExp(/[\W]/).test(passVal);
+    else{
+      isSym = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passVal);
     }
   }
 
   // All mandatory chars are present
-  if(isNum != false && isLo != false && isHi != false && isSym != false){
+  if(isNum !== false && isLo !== false && isHi !== false && isSym !== false){
     return true;
   }
   // Missing mandatory chars
   return false;
 }
-
