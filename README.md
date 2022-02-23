@@ -20,5 +20,5 @@ A password generator based on user feedback.
 	5. Else password is set to display in GUI.
 
 ### Objective Evidence
-![Example Picture](/assets/images/readme-pic.png?raw=true "Here is an example!")
+![Example Picture](/assets/images/example-pic.png?raw=true "Here is an example!")
 [Try it yourself!](https://dolomiteson.github.io/git-init-mod3-challenge/)
